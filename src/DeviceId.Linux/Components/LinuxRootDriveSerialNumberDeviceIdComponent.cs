@@ -40,7 +40,7 @@ public class LinuxRootDriveSerialNumberDeviceIdComponent : IDeviceIdComponent
     /// <returns>The component value.</returns>
     public string GetValue()
     {
-        var outputJson = _commandExecutor.Execute("lsblk -f -J");
+        var outputJson = _commandExecutor.Execute("lsblk -f -J -o Name,MountPoint");
         var output = JsonSerializer.Deserialize(outputJson, SourceGenerationContext.Default.LsblkOutput);
 
         var device = FindRootParent(output);

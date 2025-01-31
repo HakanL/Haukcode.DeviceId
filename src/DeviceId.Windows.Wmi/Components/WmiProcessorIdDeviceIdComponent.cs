@@ -54,7 +54,7 @@ public class WmiProcessorIdDeviceIdComponent : IDeviceIdComponent
 
                         if (fallbackParts.Count > 0)
                         {
-                            values.Add(string.Join("|", fallbackParts));
+                            values.Add(string.Join("|", [.. fallbackParts]));
                         }
                     }
                 }
