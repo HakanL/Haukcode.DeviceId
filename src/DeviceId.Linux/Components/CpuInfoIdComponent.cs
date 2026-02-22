@@ -38,9 +38,15 @@ public class CpuInfoIdComponent : IDeviceIdComponent
         try
         {
             string content = _commandExecutor.Execute("cat /proc/cpuinfo | grep -v \"cpu MHz\"");
+
+#if NET5_0_OR_GREATER
+            var hash = MD5.HashData(Encoding.ASCII.GetBytes(content));
+            return Convert.ToHexString(hash).Replace("-", "").ToUpper();
+#else
             using var hasher = MD5.Create();
             var hash = hasher.ComputeHash(Encoding.ASCII.GetBytes(content));
             return BitConverter.ToString(hash).Replace("-", "").ToUpper();
+#endif
         }
         catch
         {
