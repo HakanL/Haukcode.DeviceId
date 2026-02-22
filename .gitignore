@@ -6,3 +6,4 @@ artifacts/
 TestResults/
 *.nupkg
 *.snupkg
+nuget_apikey.txt
