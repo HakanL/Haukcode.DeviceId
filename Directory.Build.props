@@ -13,6 +13,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\DeviceId.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
