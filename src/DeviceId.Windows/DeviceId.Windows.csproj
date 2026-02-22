@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>DeviceId.Windows</PackageId>
+    <PackageId>Haukcode.DeviceId.Windows</PackageId>
     <Title>DeviceId (Windows)</Title>
     <Description>Provides Windows-specific components for the DeviceId package.</Description>
   </PropertyGroup>

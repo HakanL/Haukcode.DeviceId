@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>DeviceId.Mac</PackageId>
+    <PackageId>Haukcode.DeviceId.Mac</PackageId>
     <Title>DeviceId (Mac)</Title>
     <Description>Provides Mac-specific components for the DeviceId package.</Description>
   </PropertyGroup>

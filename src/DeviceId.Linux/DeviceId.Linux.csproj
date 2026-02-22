@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>DeviceId.Linux</PackageId>
+    <PackageId>Haukcode.DeviceId.Linux</PackageId>
     <Title>DeviceId (Linux)</Title>
     <Description>Provides Linux-specific components for the DeviceId package.</Description>
   </PropertyGroup>

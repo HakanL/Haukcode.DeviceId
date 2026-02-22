@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>DeviceId.Windows.Mmi</PackageId>
+    <PackageId>Haukcode.DeviceId.Windows.Mmi</PackageId>
     <Title>DeviceId (Windows / MMI)</Title>
     <Description>Provides extra Windows-specific components (using MMI) for the DeviceId package.</Description>
   </PropertyGroup>
