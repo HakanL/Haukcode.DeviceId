@@ -7,7 +7,10 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>DeviceId.Tests.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-
+  
+  <PropertyGroup>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="7.0.0" />
