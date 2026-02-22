@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using DeviceId.Internal.CommandExecutors;
+using DeviceId.CommandExecutors;
 
 namespace DeviceId.Linux.Components;
 
