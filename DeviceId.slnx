@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <File Path="Directory.Build.props" />
+    <Project Path="src/DeviceId.Linux/DeviceId.Linux.csproj" />
+    <Project Path="src/DeviceId.Mac/DeviceId.Mac.csproj" />
+    <Project Path="src/DeviceId.SqlServer/DeviceId.SqlServer.csproj" />
+    <Project Path="src/DeviceId.Windows.Mmi/DeviceId.Windows.Mmi.csproj" />
+    <Project Path="src/DeviceId.Windows.Wmi/DeviceId.Windows.Wmi.csproj" />
+    <Project Path="src/DeviceId.Windows.WmiLight/DeviceId.Windows.WmiLight.csproj" />
+    <Project Path="src/DeviceId.Windows/DeviceId.Windows.csproj" />
+    <Project Path="src/DeviceId/DeviceId.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/DeviceId.Tests/DeviceId.Tests.csproj" />
+  </Folder>
+</Solution>
