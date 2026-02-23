@@ -22,7 +22,7 @@ public class Base32ByteArrayEncoderTests
         tooShort.Should().Throw<ArgumentException>();
 
         var tooLong = () => new Base32ByteArrayEncoder("ABCDEFGHIJKLMNOPQRSTUVWXYZ23456789");
-        tooShort.Should().Throw<ArgumentException>();
+        tooLong.Should().Throw<ArgumentException>();
     }
 
     [Fact]
