@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using DeviceId.Components;
 using DeviceId.Internal;
 
@@ -88,7 +89,20 @@ public static class DeviceIdBuilderExtensions
     /// <returns>The <see cref="DeviceIdBuilder"/> instance.</returns>
     public static DeviceIdBuilder AddFileToken(this DeviceIdBuilder builder, string path)
     {
-        var name = string.Concat("FileToken", path.GetHashCode());
+        // We used to use path.GetHashCode() here, but there's no guarantee that it's stable
+        // across different runs of the application, so instead we can use a stable hash such
+        // as SHA256 and take the first few characters.
+
+        #if NET5_0_OR_GREATER
+            var hash = SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(path));
+            var hashString = Convert.ToHexString(hash);
+        #else
+            using var hasher = SHA256.Create();
+            var hash = hasher.ComputeHash(System.Text.Encoding.UTF8.GetBytes(path));
+            var hashString = BitConverter.ToString(hash).Replace("-", "");
+        #endif
+
+        var name = string.Concat("FileToken_", hashString);
         return builder.AddComponent(name, new FileTokenDeviceIdComponent(path));
     }
 }
