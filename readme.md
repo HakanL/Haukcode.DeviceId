@@ -75,7 +75,7 @@ string deviceId = new DeviceIdBuilder()
         .AddMotherboardSerialNumber()
         .AddSystemDriveSerialNumber())
     .OnMac(mac => mac
-        .AddSystemDriveSerialNumber()
+        .AddSystemDriveVolumeUUID()
         .AddPlatformSerialNumber())
     .ToString();
 ```
@@ -132,7 +132,7 @@ From `DeviceId.Linux`:
 
 From `DeviceId.Mac`:
 
-* `AddSystemDriveSerialNumber` adds the system drive's serial number to the device identifier.
+* `AddSystemDriveVolumeUUID` adds the system drive's Volume UUID to the device identifier.
 * `AddPlatformSerialNumber` adds IOPlatformSerialNumber to the device identifier.
 
 From `DeviceId.SqlServer`:
