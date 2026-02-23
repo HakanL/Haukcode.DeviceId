@@ -23,7 +23,7 @@ public class FileContentsDeviceIdComponent : IDeviceIdComponent
     private readonly bool _hashContents;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileTokenDeviceIdComponent"/> class.
+    /// Initializes a new instance of the <see cref="FileContentsDeviceIdComponent"/> class.
     /// </summary>
     /// <param name="path">The path of the file holding the component ID.</param>
     /// <param name="hashContents">A value determining whether the file contents should be hashed.</param>
@@ -31,7 +31,7 @@ public class FileContentsDeviceIdComponent : IDeviceIdComponent
         : this(new[] { path }, hashContents) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileTokenDeviceIdComponent"/> class.
+    /// Initializes a new instance of the <see cref="FileContentsDeviceIdComponent"/> class.
     /// </summary>
     /// <param name="paths">The paths to read. The first path that can be successfully read will be used.</param>
     /// <param name="hashContents">A value determining whether the file contents should be hashed.</param>
