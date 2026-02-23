@@ -37,21 +37,24 @@ public class CpuInfoIdComponent : IDeviceIdComponent
     {
         try
         {
-            string content = _commandExecutor.Execute("cat /proc/cpuinfo | grep -v \"cpu MHz\"");
-
+            var content = _commandExecutor.Execute("cat /proc/cpuinfo | grep -v \"cpu MHz\"");
+            if (!string.IsNullOrEmpty(content))
+            {
 #if NET5_0_OR_GREATER
-            var hash = MD5.HashData(Encoding.ASCII.GetBytes(content));
-            return Convert.ToHexString(hash).Replace("-", "").ToUpper();
+                var hash = MD5.HashData(Encoding.ASCII.GetBytes(content));
+                return Convert.ToHexString(hash).Replace("-", "").ToUpper();
 #else
-            using var hasher = MD5.Create();
-            var hash = hasher.ComputeHash(Encoding.ASCII.GetBytes(content));
-            return BitConverter.ToString(hash).Replace("-", "").ToUpper();
+                using var hasher = MD5.Create();
+                var hash = hasher.ComputeHash(Encoding.ASCII.GetBytes(content));
+                return BitConverter.ToString(hash).Replace("-", "").ToUpper();
 #endif
+            }
         }
         catch
         {
             // Can fail if we have no permissions to access the file.
         }
+
         return null;
     }
 }

@@ -15,7 +15,6 @@ public class WmiLightSystemDriveSerialNumberDeviceIdComponent() : IDeviceIdCompo
     public string GetValue()
     {
         var systemDirectory = Environment.GetFolderPath(Environment.SpecialFolder.System);
-        var systemLogicalDiskDeviceId = systemDirectory.Substring(0, 2);
 
         // SystemDirectory can sometimes be null or empty.
         // See: https://github.com/dotnet/runtime/issues/21430 and https://github.com/MatthewKing/DeviceId/issues/64
@@ -23,6 +22,8 @@ public class WmiLightSystemDriveSerialNumberDeviceIdComponent() : IDeviceIdCompo
         {
             return null;
         }
+
+        var systemLogicalDiskDeviceId = systemDirectory.Substring(0, 2);
 
         try
         {

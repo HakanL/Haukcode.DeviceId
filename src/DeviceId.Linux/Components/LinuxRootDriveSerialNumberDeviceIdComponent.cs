@@ -40,28 +40,53 @@ public class LinuxRootDriveSerialNumberDeviceIdComponent : IDeviceIdComponent
     /// <returns>The component value.</returns>
     public string GetValue()
     {
-        var outputJson = _commandExecutor.Execute("lsblk -f -J -o Name,MountPoint");
-        var output = JsonSerializer.Deserialize(outputJson, SourceGenerationContext.Default.LsblkOutput);
+        try
+        {
+            var outputJson = _commandExecutor.Execute("lsblk -f -J -o Name,MountPoint");
+            if (string.IsNullOrEmpty(outputJson))
+            {
+                return null;
+            }
 
-        var device = FindRootParent(output);
-        if (device == null)
+            LsblkOutput output = null;
+            try
+            {
+                output = JsonSerializer.Deserialize(outputJson, SourceGenerationContext.Default.LsblkOutput);
+            }
+            catch
+            {
+                return null;
+            }
+
+            if (output == null || output.BlockDevices == null || output.BlockDevices.Count == 0)
+            {
+                return null;
+            }
+
+            var device = FindRootParent(output);
+            if (device == null)
+            {
+                return null;
+            }
+
+            var udevInfo = _commandExecutor.Execute($"udevadm info --query=all --name=/dev/{device.Name} | grep ID_SERIAL=");
+            if (string.IsNullOrEmpty(udevInfo))
+            {
+                return null;
+            }
+
+            var components = udevInfo.Split('=');
+            if (components.Length < 2)
+            {
+                return null;
+            }
+
+            return components[1];
+        }
+        catch
         {
             return null;
         }
-
-        var udevInfo = _commandExecutor.Execute($"udevadm info --query=all --name=/dev/{device.Name} | grep ID_SERIAL=");
-        if (udevInfo == null)
-        {
-            return null;
-        }
-
-        var components = udevInfo.Split('=');
-        if (components.Length < 2)
-        {
-            return null;
-        }
-
-        return components[1];
     }
 
     private static LsblkDevice FindRootParent(LsblkOutput devices)

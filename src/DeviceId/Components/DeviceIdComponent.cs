@@ -26,6 +26,11 @@ public class DeviceIdComponent : IDeviceIdComponent
     /// <param name="valueFactory">A function that returns the component value.</param>
     public DeviceIdComponent(Func<string> valueFactory)
     {
+        if (valueFactory is null)
+        {
+            throw new ArgumentNullException(nameof(valueFactory));
+        }
+
         _valueFactory = valueFactory;
     }
 
@@ -35,6 +40,6 @@ public class DeviceIdComponent : IDeviceIdComponent
     /// <returns>The component value.</returns>
     public string GetValue()
     {
-        return _valueFactory.Invoke();
+        return _valueFactory.Invoke() ?? null;
     }
 }

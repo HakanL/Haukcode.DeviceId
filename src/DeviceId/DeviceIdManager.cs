@@ -35,6 +35,11 @@ public class DeviceIdManager
     /// <returns>This <see cref="DeviceIdManager"/> instance.</returns>
     public DeviceIdManager WithVersionEncoder(IDeviceIdVersionEncoder encoder)
     {
+        if (encoder is null)
+        {
+            throw new ArgumentNullException(nameof(encoder));
+        }
+
         _versionEncoder = encoder;
 
         return this;
@@ -48,6 +53,11 @@ public class DeviceIdManager
     /// <returns>This <see cref="DeviceIdManager"/> instance.</returns>
     public DeviceIdManager AddBuilder(int version, DeviceIdBuilder builder)
     {
+        if (builder is null)
+        {
+            throw new ArgumentNullException(nameof(builder));
+        }
+
         _builders[version] = builder;
 
         return this;

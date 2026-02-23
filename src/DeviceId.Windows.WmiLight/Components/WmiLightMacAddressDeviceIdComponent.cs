@@ -49,8 +49,6 @@ public class WmiLightMacAddressDeviceIdComponent(bool excludeWireless, bool excl
     {
         var values = new List<string>();
 
-        values.Sort();
-
         using var wmiConnection = new WmiConnection(@"\\.\root\StandardCimv2");
 
         foreach (var wmiObject in wmiConnection.CreateQuery("SELECT * FROM MSFT_NetAdapter"))
@@ -86,6 +84,8 @@ public class WmiLightMacAddressDeviceIdComponent(bool excludeWireless, bool excl
                 wmiObject.Dispose();
             }
         }
+
+        values.Sort();
 
         return values.Count > 0
             ? string.Join(",", values.ToArray())

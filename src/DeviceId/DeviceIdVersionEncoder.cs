@@ -34,6 +34,13 @@ public partial class DeviceIdVersionEncoder : IDeviceIdVersionEncoder
     /// <returns>true if the string was decoded successfully; otherwise, false.</returns>
     public bool TryDecode(string value, out string deviceId, out int version)
     {
+        if (string.IsNullOrEmpty(value))
+        {
+            version = default;
+            deviceId = default;
+            return false;
+        }
+        
         var match = VersionEncoderRegex().Match(value);
         if (match.Success)
         {

@@ -88,7 +88,7 @@ public class SqlServerDeviceIdBuilder
     /// <returns>The <see cref="SqlServerDeviceIdBuilder"/> instance.</returns>
     public SqlServerDeviceIdBuilder AddQueryResult(string componentName, string sql, Func<object, string> valueTransformer)
     {
-        _baseBuilder.Components.Add(componentName, new DatabaseQueryDeviceIdComponent(_connectionFactory, sql, valueTransformer, _disposeConnection));
+        _baseBuilder.AddComponent(componentName, new DatabaseQueryDeviceIdComponent(_connectionFactory, sql, valueTransformer, _disposeConnection));
 
         return this;
     }

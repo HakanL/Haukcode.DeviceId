@@ -12,6 +12,7 @@ public class ShCommandExecutor : CommandExecutorBase
     /// <returns>The command output.</returns>
     public override string Execute(string command)
     {
-        return RunWithShell("/bin/sh", $"-c \"{command.Replace("\"", "\\\"")}\"").Trim('\r').Trim('\n').TrimEnd().TrimStart();
+        var output = RunWithShell("/bin/sh", $"-c \"{command.Replace("\"", "\\\"")}\"");
+return output?.Trim();
     }
 }

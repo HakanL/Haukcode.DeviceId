@@ -30,10 +30,14 @@ public abstract class CommandExecutorBase : ICommandExecutor
         psi.CreateNoWindow = true;
 
         using var process = Process.Start(psi);
+        if (process is null)
+        {
+            return null;
+        }
 
-        process?.WaitForExit();
+        process.WaitForExit();
 
-        var output = process?.StandardOutput.ReadToEnd();
+        var output = process.StandardOutput.ReadToEnd();
 
         return output;
     }
