@@ -5,7 +5,7 @@ namespace DeviceId;
 /// <summary>
 /// The default implementation of <see cref="IDeviceIdVersionEncoder"/>.
 /// </summary>
-public class DeviceIdVersionEncoder : IDeviceIdVersionEncoder
+public partial class DeviceIdVersionEncoder : IDeviceIdVersionEncoder
 {
     /// <summary>
     /// Encodes a device identifier and a version number into a string.
@@ -18,6 +18,13 @@ public class DeviceIdVersionEncoder : IDeviceIdVersionEncoder
         return $"${version}${deviceId}";
     }
 
+#if NET7_0_OR_GREATER
+    [GeneratedRegex("^\\$(.*?)\\$(.*?)$", RegexOptions.Compiled)]
+    private static partial Regex VersionEncoderRegex();
+#else
+    private static Regex VersionEncoderRegex() => new Regex("^\\$(.*?)\\$(.*?)$", RegexOptions.Compiled);
+#endif
+
     /// <summary>
     /// Attempts to decode a string into a device identifier and a version number.
     /// </summary>
@@ -27,7 +34,7 @@ public class DeviceIdVersionEncoder : IDeviceIdVersionEncoder
     /// <returns>true if the string was decoded successfully; otherwise, false.</returns>
     public bool TryDecode(string value, out string deviceId, out int version)
     {
-        var match = Regex.Match(value, "^\\$(.*?)\\$(.*?)$");
+        var match = VersionEncoderRegex().Match(value);
         if (match.Success)
         {
             if (int.TryParse(match.Groups[1].Value, out var parsedVersion))

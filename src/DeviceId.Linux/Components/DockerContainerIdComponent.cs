@@ -6,7 +6,7 @@ namespace DeviceId.Linux.Components;
 /// <summary>
 /// An implementation of <see cref="IDeviceIdComponent"/> that uses the cgroup to read the Docker container id.
 /// </summary>
-public class DockerContainerIdComponent : IDeviceIdComponent
+public partial class DockerContainerIdComponent : IDeviceIdComponent
 {
     /// <summary>
     /// The cgroup file.
@@ -43,9 +43,16 @@ public class DockerContainerIdComponent : IDeviceIdComponent
         return null;
     }
 
+#if NET7_0_OR_GREATER
+    [GeneratedRegex("(\\d)+\\:(.)+?\\:(/.+?)??(/docker[-/])([0-9a-f]+)", RegexOptions.Compiled)]
+    private static partial Regex DockerContainerRegex();
+#else
+    private static Regex DockerContainerRegex() => new Regex("(\\d)+\\:(.)+?\\:(/.+?)??(/docker[-/])([0-9a-f]+)", RegexOptions.Compiled);
+#endif
+
     private static bool TryGetContainerId(StreamReader reader, out string containerId)
     {
-        var regex = new Regex("(\\d)+\\:(.)+?\\:(/.+?)??(/docker[-/])([0-9a-f]+)");
+        var regex = DockerContainerRegex();
 
         string line;
         while ((line = reader?.ReadLine()) != null)
